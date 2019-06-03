@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Тестовое задание в Новосибирск для Proactivity Group</title>
+    <!-- Подключение Vue.js -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+
+</head>
+
+<body>
+    <div id="app">
+
+        <div class="main-background">
+            <div class="pad-top">
+                Верхнее поле
+            </div>
+            <div class="progress-bar">
+                Прогресс бар
+            </div>
+            <div class="header">
+                <h1>Форма с прогресс баром<h1>
+            </div>
+            <div class="phorm">
+                <h3 style="margin: 0 0 10px">Как вас зовут<sup>*</sup></h3>
+                <div class="FIO">
+                    <div class="name">
+                        <input placeholder="Имя"></input>
+                    </div>
+                    
+                    <div class="last_name">
+                        <input placeholder="Фамилия"></input>
+                    </div>
+                </div>
+                <h3 style="margin: 0 0 10px">Электронная почта</h3>
+                <div class="mail">
+                    <input placeholder="your@email.ru"></input>
+                </div>
+
+            </div>
+            <div class="pad-bottom">
+                Нижнее поле
+            </div>
+
+        </div>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: "#app",
+    })
+</script>
+
+</html>

@@ -1,0 +1,81 @@
+body {
+    margin: 0;
+}
+.main-background{
+    grid-template-columns: 5%  90%  5%;
+    grid-template-rows: 3% 6% 10% 78% 3%;
+    display: grid;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(59, 59, 207, 0.808) url("back.jpg") repeat;
+    background-size: 50%;
+    background-blend-mode: soft-light;
+    
+    margin: 0;
+}
+.pad-top{
+    grid-row-start: 1;
+    grid-column-start: 1;
+    grid-column-end: 4;
+}
+
+.progress-bar{
+    grid-row-start: 2;
+    grid-column-start: 2; 
+}
+
+.header{
+    grid-row-start: 3;
+    grid-column-start:2;
+    color: white;
+}
+
+.phorm{
+    grid-row-start: 4;
+    grid-column-start:2;
+    background-color: white;
+    padding: 5%;
+}
+
+.pad-bottom{
+    grid-row-start: 5;
+    grid-column-start: 1;
+    grid-column-end: 4;
+}
+
+.name{
+    display: inline-block;
+    width: 50%;
+
+}
+
+.name input{
+    width: 95%;
+    padding: 10px 0px 10px 10px;
+
+}
+
+
+.last_name{
+    display: inline-block;
+    width: 49%;
+    text-align: right;
+   
+}
+
+
+.last_name input{
+    width: 95%;
+    padding: 10px 0px 10px 10px;
+}
+
+.FIO{
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.mail input{
+    width: 98%;
+    padding: 10px 0px 10px 10px;;
+}
+
