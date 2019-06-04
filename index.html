@@ -5,6 +5,7 @@
     <title>Тестовое задание в Новосибирск для Proactivity Group</title>
     <!-- Подключение Vue.js -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="js/jquery.js"></script>
     <link rel="stylesheet" href="style.css">
     <meta charset="UTF-8">
 
@@ -23,58 +24,62 @@
             <div class="header">
                 <h1>Форма с прогресс баром<h1>
             </div>
+
             <div class="phorm">
-                <h3 style="margin: 0 0 10px">Как вас зовут<sup>*</sup></h3>
-                <div class="FIO">
-                    <div class="name">
-                        <input placeholder="Имя"></input>
+                <form>
+                    <h3 style="margin: 0 0 10px">Как вас зовут<sup>*</sup></h3>
+                    <div class="FIO">
+                        <div class="name">
+                            <input placeholder="Имя" maxlength="50" v-model="NAME"></input>
+                        </div>
+
+                        <div class="last_name">
+                            <input placeholder="Фамилия" maxlength="50" v-model="LAST_NAME"></input>
+                        </div>
+                    </div>
+                    <h3 style="margin: 0 0 10px">Электронная почта</h3>
+                    <div class="mail">
+                        <input placeholder="your@email.ru" v-model="EMAIL"></input>
                     </div>
 
-                    <div class="last_name">
-                        <input placeholder="Фамилия"></input>
+                    <h3 style="margin: 0 0 10px">Телефон</h3>
+                    <div class="phone-number">
+                        <input placeholder="+7 923 3452 438" v-model='PHONE'></input>
                     </div>
-                </div>
-                <h3 style="margin: 0 0 10px">Электронная почта</h3>
-                <div class="mail">
-                    <input placeholder="your@email.ru"></input>
-                </div>
 
-                <h3 style="margin: 0 0 10px">Телефон</h3>
-                <div class="phone-number">
-                    <input placeholder="+7 923 3452 438"></input>
-                </div>
+                    <h3 style="margin: 0 0 10px">О себе</h3>
+                    <div class="about">
+                        <textarea cols="30" rows="5"></textarea>
+                    </div>
 
-                <h3 style="margin: 0 0 10px">О себе</h3>
-                <div class="about">
-                    <textarea cols="30" rows="5"></textarea>
-                </div>
+                    <h3 style="margin: 0 0 10px">Чем Вы собираетесь заниматься на нашем сайте?</h3>
+                    <div class="activity">
+                        <figure class="kind_1" @click="choose($event)" :class='{highlight: kind_1}'>
+                            <p><img src="icons/icon0.png"></img></p>
+                            <figcaption>Разработка сайта</figcaption>
+                        </figure>
+                        <figure class="kind_2" @click="choose($event)" :class='{highlight: kind_2}'>
+                            <p><img src="icons/icon2.png"></img></p>
+                            <figcaption>Поисковая оптимизация</figcaption>
+                        </figure>
+                        <figure class="kind_3" @click="choose($event)" :class='{highlight: kind_3}'>
+                            <p><img src="icons/icon3.png"></img></p>
+                            <figcaption>Разработка приложения</figcaption>
+                        </figure>
+                        <figure class="kind_4" @click="choose($event)" :class='{highlight: kind_4}'>
+                            <p><img src="icons/icon4.png"></img></p>
+                            <figcaption>Контекстная реклама</figcaption>
+                        </figure>
+                        <figure class="kind_5" @click="choose($event)" :class='{highlight: kind_5}'>
+                            <p><img src="icons/icon5.png"></img></p>
+                            <figcaption>Маркетинг, SMM, PR</figcaption>
+                        </figure>
+                    </div>
+                    <hr>
+                    <div class="button" @click="sendData">Отправить</div>
 
-                <h3 style="margin: 0 0 10px">Чем Вы собираетесь заниматься на нашем сайте?</h3>
-                <div class="activity">
-                    <figure class="kind_1">
-                        <p><img src="icons/icon1.png"></img></p>
-                        <figcaption>Разработка сайта</figcaption>
-                    </figure>
-                    <figure class="kind_2">
-                        <p><img src="icons/icon2.png"></img></p>
-                        <figcaption>Поисковая оптимизация</figcaption>
-                    </figure>
-                    <figure class="kind_3">
-                        <p><img src="icons/icon3.png"></img></p>
-                        <figcaption>Разработка приложения</figcaption>
-                    </figure>
-                    <figure class="kind_4">
-                        <p><img src="icons/icon4.png"></img></p>
-                        <figcaption>Контекстная реклама</figcaption>
-                    </figure>
-                    <figure class="kind_5">
-                        <p><img src="icons/icon5.png"></img></p>
-                        <figcaption>Маркетинг, SMM, PR</figcaption>
-                    </figure>
-                </div>
-                <hr>
-                <div class="button">Отправить</div>
 
+                </form>
             </div>
             <div class="pad-bottom">
                 Нижнее поле
@@ -86,6 +91,54 @@
 <script>
     new Vue({
         el: "#app",
+        data() {
+            return {
+               NAME: '',
+                LAST_NAME: '',
+               PHONE: '',
+                EMAIL: '',
+
+                kind_1: false,
+                kind_2: false,
+                kind_3: false,
+                kind_4: false,
+                kind_5: false,
+
+                choosen: [],
+
+            }
+        },
+        methods: {
+            choose() {
+
+                var a = event.target;
+                var b = a.closest('figure');
+                console.log(b);
+                console.log(b.className);
+
+            },
+            sendData() {
+                $.ajax({
+                    url: "https://workspace.ru/ajax/test/test.php",
+                    method: "POST",
+                    data: {
+                        'NAME': this.NAME,
+                        'LAST_NAME': this.LAST_NAME,
+                        'PHONE': this.PHONE,
+                        'EMAIL': this.EMAIL,
+
+                    },
+                    success: data => {
+                        try {
+                            console.log(data);
+
+                        } catch (err) {
+                            console.log(err);
+                        }
+                    }
+                })
+            }
+        }
     })
 </script>
 

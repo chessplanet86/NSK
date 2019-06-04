@@ -108,7 +108,14 @@ body {
 }
 .activity .kind_1, .kind_2, .kind_3, .kind_4, .kind_5 {
     display: inline-block;
-    width: 20%
+    width: 20%;
+    height: 20%;
+    cursor: pointer;
+}
+
+.highlight{
+    background: rgba(59, 59, 207, 0.219);
+    background-blend-mode: soft-light;
 }
 
 .button{
@@ -118,4 +125,5 @@ body {
     text-align: center;
     padding-top: 10px;
     padding-bottom: 10px;
+    cursor: pointer;
 }
