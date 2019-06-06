@@ -2,10 +2,12 @@
 <html>
 
 <head>
-    <title>Тестовое задание в Новосибирск для Proactivity Group</title>
+    <title>Тестовое задание в Новосибирск для Proactivity Group Юсуф Алексей Александрович</title>
     <!-- Подключение Vue.js -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="js/jquery.js"></script>
+    <script src="js/jquery.maskedinput.js"></script>
+    <script async src="js/main.js"></script>
     <link rel="stylesheet" href="style.css">
     <meta charset="UTF-8">
 
@@ -16,130 +18,105 @@
 
         <div class="main-background">
             <div class="pad-top">
-                Верхнее поле
             </div>
-            <div class="progress-bar">
-                Прогресс бар
+            <div class="progress-bar" style="color: white">
+                Форма заполнена на {{Status +'%'}}
+                <div class='stat'>
+                    <div class="level1" v-if="ocupansyPhone==1"></div>
+                    <div class="level2" v-if='ocupansyAbout==1'></div>
+                    <div class="level3" v-if='ocupansyName==1'></div>
+                    <div class="level4" v-if='ocupansyLastName==1'></div>
+                    <div class="level5" v-if='ocupansyEmail==1'></div>
+                    <div class="level6" v-if='ocupansyAct1==1'></div>
+                    <div class="level7" v-if='ocupansyAct2==1'></div>
+                </div>
+
             </div>
             <div class="header">
                 <h1>Форма с прогресс баром<h1>
             </div>
 
-            <div class="phorm">
+            <div class="phorm" @click='clear'>
                 <form>
                     <h3 style="margin: 0 0 10px">Как вас зовут<sup>*</sup></h3>
                     <div class="FIO">
                         <div class="name">
-                            <input placeholder="Имя" maxlength="50" v-model="NAME"></input>
+                            <input placeholder="Имя" maxlength="50" v-model="name"></input>
                         </div>
-
                         <div class="last_name">
-                            <input placeholder="Фамилия" maxlength="50" v-model="LAST_NAME"></input>
+                            <input placeholder="Фамилия" maxlength="50" v-model="last_name"></input>
+                        </div>
+                        <div class="error" style="color: red">
+                            <div v-show="errorName==false || errorLastName==false">
+                                {{reportName}}
+                            </div>
+                            <!-- <div v-show="errorLastName==false">
+                                В фамилии имеются недопустимые символы.
+                            </div> -->
                         </div>
                     </div>
                     <h3 style="margin: 0 0 10px">Электронная почта</h3>
                     <div class="mail">
-                        <input placeholder="your@email.ru" v-model="EMAIL"></input>
+                        <input placeholder="your@email.ru" v-model="email" required></input>
+
+                        <div v-if="errorEmail==false" style="color: red">
+                            {{reportEmail}}
+                        </div>
+                        <div v-else style="color: green">
+                            {{reportEmail}}
+                        </div>
+
                     </div>
+
 
                     <h3 style="margin: 0 0 10px">Телефон</h3>
                     <div class="phone-number">
-                        <input placeholder="+7 923 3452 438" v-model='PHONE'></input>
+                        <input placeholder="+7 923 3452 438" v-model='phone' id="phone" required></input>
+                        <div v-if="!errorPhone" style="color: red">{{reportPhone}}</div>
                     </div>
 
                     <h3 style="margin: 0 0 10px">О себе</h3>
                     <div class="about">
-                        <textarea cols="30" rows="5"></textarea>
+                        <textarea cols="30" rows="5" v-model="about" maxlength="500"></textarea>
                     </div>
 
                     <h3 style="margin: 0 0 10px">Чем Вы собираетесь заниматься на нашем сайте?</h3>
                     <div class="activity">
-                        <figure class="kind_1" @click="choose($event)" :class='{highlight: kind_1}'>
+                        <figure class="kind_1" @click="choose($event)" :class='{highlight: kind_1}' id='kind_1'>
                             <p><img src="icons/icon0.png"></img></p>
                             <figcaption>Разработка сайта</figcaption>
                         </figure>
-                        <figure class="kind_2" @click="choose($event)" :class='{highlight: kind_2}'>
+                        <figure class="kind_2" @click="choose($event)" :class='{highlight: kind_2}' id='kind_2'>
                             <p><img src="icons/icon2.png"></img></p>
                             <figcaption>Поисковая оптимизация</figcaption>
                         </figure>
-                        <figure class="kind_3" @click="choose($event)" :class='{highlight: kind_3}'>
+                        <figure class="kind_3" @click="choose($event)" :class='{highlight: kind_3}' id='kind_3'>
                             <p><img src="icons/icon3.png"></img></p>
                             <figcaption>Разработка приложения</figcaption>
                         </figure>
-                        <figure class="kind_4" @click="choose($event)" :class='{highlight: kind_4}'>
+                        <figure class="kind_4" @click="choose($event)" :class='{highlight: kind_4}' id='kind_4'>
                             <p><img src="icons/icon4.png"></img></p>
                             <figcaption>Контекстная реклама</figcaption>
                         </figure>
-                        <figure class="kind_5" @click="choose($event)" :class='{highlight: kind_5}'>
+                        <figure class="kind_5" @click="choose($event)" :class='{highlight: kind_5}' id='kind_5'>
                             <p><img src="icons/icon5.png"></img></p>
                             <figcaption>Маркетинг, SMM, PR</figcaption>
                         </figure>
                     </div>
                     <hr>
                     <div class="button" @click="sendData">Отправить</div>
+                    <div class="message" style="margin-top: 10 px"><h3>{{message}}</h3></div>
 
 
                 </form>
             </div>
             <div class="pad-bottom">
-                Нижнее поле
+                {{checkName}} {{checkLastName}} {{checkEmail}} {{checkPhone}} {{checkAbout}} {{checkEnd}} {{checkAct}}
             </div>
 
         </div>
     </div>
 </body>
-<script>
-    new Vue({
-        el: "#app",
-        data() {
-            return {
-               NAME: '',
-                LAST_NAME: '',
-               PHONE: '',
-                EMAIL: '',
 
-                kind_1: false,
-                kind_2: false,
-                kind_3: false,
-                kind_4: false,
-                kind_5: false,
-
-                choosen: [],
-
-            }
-        },
-        methods: {
-            choose() {
-
-                var a = event.target;
-                var b = a.closest('figure');
-                console.log(b);
-                console.log(b.className);
-
-            },
-            sendData() {
-                $.ajax({
-                    url: "https://workspace.ru/ajax/test/test.php",
-                    method: "POST",
-                    data: {
-                        'NAME': this.NAME,
-                        'LAST_NAME': this.LAST_NAME,
-                        'PHONE': this.PHONE,
-                        'EMAIL': this.EMAIL,
-
-                    },
-                    success: data => {
-                        try {
-                            console.log(data);
-
-                        } catch (err) {
-                            console.log(err);
-                        }
-                    }
-                })
-            }
-        }
-    })
-</script>
 
 </html>
